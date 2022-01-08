@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+      "lib": [ "es6", "dom", "scripthost", "DOM.Iterable" ],
+      //      "lib": [ "es6", "dom", "es2017", "esnext" ],
+
+      "module": "esnext",
+      "target": "es2017",
+  
+      // WARNINGS
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "noImplicitReturns": true,
+      "noUnusedParameters": true,
+      "allowUnreachableCode": false,
+      "allowUnusedLabels": false,
+      "alwaysStrict": true,
+      "noUnusedLocals": true,
+
+      "outDir": "out",
+
+      "sourceMap": true,
+
+      "typeRoots": [
+        "node_modules/@types",
+        "node_module/phaser/types"
+      ],
+      "types": [
+        "Phaser"
+      ]
+      
+    },
+       
+    "typeAcquisition": {
+      "include": ["jquery"]
+    },
+
+    
+
+  }
