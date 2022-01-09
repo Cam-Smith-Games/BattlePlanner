@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "phaser": "^3.55.2"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.11"
   }
 }

@@ -1,3 +1,4 @@
+import { PhaserPopup } from "../UI/phaserpopup.js";
 
 export interface CharacterParams {
     scene: Phaser.Scene;
@@ -44,7 +45,6 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
         p.scene.add.existing(this);
         p.scene.physics.add.existing(this);
 
-
         this.setSize(p.size?.x || 32, p.size?.y || 32)
         this.setScale(p.scale?.x || 1, p.scale?.y || 1);
 
@@ -58,6 +58,26 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
 
         this.bar = new Phaser.GameObjects.Graphics(this.scene);
         this.scene.add.existing(this.bar);
+
+
+        // mouse interactivity
+        this.setInteractive();
+        this.on(Phaser.Input.Events.POINTER_DOWN, this.click);
+
+    }
+
+
+    click() {
+        console.log("clicked", this);
+
+        new PhaserPopup({
+            game: this.scene.game,
+            icon: "person",
+            title: "Character",
+            body: "Hello World"
+        });
+
+      
     }
 
 
@@ -165,7 +185,7 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     }
     
 
-    update(_:number, characters:Character[]) {
+    update(_:number, __:Character[]) {
 
         if (this.health.current <= 0) {
             this.setState(CharacterStates.DYING);
@@ -185,6 +205,8 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
             }
             else {
 
+                /*
+                
                 // idle ? try to pick new target
                 // TODO: target logic (i.e. pick lowest hp vs pick nearest etc)
                 if (characters.length) {
@@ -203,6 +225,7 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
                     this.setState(CharacterStates.IDLE);
                 }
 
+                */
             }
         }
 

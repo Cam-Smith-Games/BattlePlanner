@@ -32,8 +32,8 @@ class Game extends Phaser.Scene {
                     maximum: 20 + (Math.random() * 20)
                 }
             });
-            knight1.target = knight2;
-            knight2.target = knight1;
+            //knight1.target = knight2;
+            //knight2.target = knight1;
             this.characters.push(knight1);
             this.characters.push(knight2);
         }
@@ -97,7 +97,7 @@ window.onload = function () {
         physics: {
             default: "arcade",
             arcade: {
-                //debug: true, 
+                debug: true,
                 gravity: {
                     y: 0
                 }

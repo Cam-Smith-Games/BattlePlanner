@@ -1,0 +1,9 @@
+html { 
+    background: black; 
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/** phaser is setting html,body height to 100% inline... idk why but it's messing up popup.css */
+html,body { height: unset !important; }
+input:focus,select:focus { outline: none; }
+button:not(:disabled) { cursor: pointer; }

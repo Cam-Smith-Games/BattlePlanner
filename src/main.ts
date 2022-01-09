@@ -46,18 +46,23 @@ class Game extends Phaser.Scene {
                 }
             });
 
-            knight1.target = knight2;
-            knight2.target = knight1;
+            //knight1.target = knight2;
+            //knight2.target = knight1;
                     
             this.characters.push(knight1);
             this.characters.push(knight2);
 
+            
         }
 
         
         // making characters collide with other characters
         let characters = this.physics.add.group(this.characters);
         this.physics.add.collider(characters, characters);
+
+
+
+    
     }
  
 
@@ -127,7 +132,7 @@ window.onload = function() {
         physics: {
             default: "arcade",
             arcade: {
-                //debug: true, 
+                debug: true, 
                 gravity: {
                     y: 0
                 }

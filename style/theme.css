@@ -1,0 +1,20 @@
+:root {
+    --color-menu: #021630;
+    --color-container: #FFFFFF;
+    --color-accent: #0080FF;
+    --color-text: #004F9D;
+    --color-background: #000000;
+    --color-success: #8CCA5D;
+    --color-error: #E6492E;
+    --color-warning: #FFC25E;
+    --color-auxiliary: #C1C1C1;
+    --color-text-text: white;
+    --color-menu-text: white;
+    --color-accent-text: white;
+    --color-success-text: white;
+    --color-warning-text: white;
+    --color-error-text: white;
+
+    --color-header: #F3F3F3FF;
+    --color-header-border: #E7E7E7;
+}

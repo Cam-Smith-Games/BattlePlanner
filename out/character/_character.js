@@ -1,3 +1,4 @@
+import { PhaserPopup } from "../UI/phaserpopup.js";
 export var CharacterStates;
 (function (CharacterStates) {
     CharacterStates[CharacterStates["IDLE"] = 0] = "IDLE";
@@ -21,6 +22,18 @@ export class Character extends Phaser.GameObjects.Sprite {
         this.speed = 400;
         this.bar = new Phaser.GameObjects.Graphics(this.scene);
         this.scene.add.existing(this.bar);
+        // mouse interactivity
+        this.setInteractive();
+        this.on(Phaser.Input.Events.POINTER_DOWN, this.click);
+    }
+    click() {
+        console.log("clicked", this);
+        new PhaserPopup({
+            game: this.scene.game,
+            icon: "person",
+            title: "Character",
+            body: "Hello World"
+        });
     }
     isTargetWithinRange() {
         if (this.target) {
@@ -107,7 +120,7 @@ export class Character extends Phaser.GameObjects.Sprite {
         }
         return this;
     }
-    update(_, characters) {
+    update(_, __) {
         if (this.health.current <= 0) {
             this.setState(CharacterStates.DYING);
         }
@@ -126,21 +139,27 @@ export class Character extends Phaser.GameObjects.Sprite {
                 }
             }
             else {
+                /*
+                
                 // idle ? try to pick new target
                 // TODO: target logic (i.e. pick lowest hp vs pick nearest etc)
                 if (characters.length) {
                     // getting closest character (that has not been destroyed yet)
                     this.target = characters
-                        .filter(c => c.scene && c.health.current > 0 && c != this)
-                        .sort((a, b) => this.dist(a) - this.dist(b))[0];
+                    .filter(c => c.scene && c.health.current > 0 && c != this)
+                    .sort((a,b) =>  this.dist(a) - this.dist(b))[0];
+
                     if (this.target) {
                         this.setState(CharacterStates.RUNNING);
                         console.log("acquired target: ", this.target);
                     }
                 }
+
                 if (!this.target) {
                     this.setState(CharacterStates.IDLE);
                 }
+
+                */
             }
         }
         // #region rendering health bar

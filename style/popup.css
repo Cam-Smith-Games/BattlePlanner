@@ -1,0 +1,1126 @@
+/* #region btn-icon */
+/* this is the improved version of icon-button... instead of the <button> containing an <i class='material-icons'>, i copy the .material-icons css into the button itself */
+.btn-icon {
+    font-family: 'Material Icons'; /* begin .material-icons css*/
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5em;               /* modified font-size:24px to 1.5em (icons are pretty small, 1.5 tends to line up with actual font-size) */
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none !important;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased; /* end .material-icons css */
+
+    border: none;
+    outline: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+.btn-icon.accent {
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border: 1px solid var(--color-accent);
+    border-radius: .33em;
+}
+    .btn-icon.accent:hover:enabled {
+        background-color: transparent !important; /*var(--color-container) !important;*/
+        cursor: pointer;
+    }
+    .btn-icon.accent:hover:enabled, .btn-icon.accent:hover:enabled i, .btn-icon.accent:hover:enabled span {
+        color: var(--color-accent) !important;
+    }
+.btn-icon.invert {
+    background-color: var(--color-accent);
+    color: var(--color-accent-text);
+}
+.btn-icon.invert.error {
+    background-color: var(--color-error);
+    color: var(--color-error-text);
+}
+.btn-icon.invert.success {
+    background-color: var(--color-success);
+    color: var(--color-success-text);
+}
+.btn-icon.invert.warning {
+    background-color: var(--color-warning);
+    color: var(--color-warning-text);
+}
+.btn-icon.invert.text {
+    background-color: var(--color-text);
+    color: var(--color-text-text);
+}
+.btn-icon.rounded {
+    border-radius: 999em;
+}
+
+/* #endreigon */
+
+/* #region modal */
+.popup-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    max-height: 100vh;
+}
+    .popup-modal.modal {
+        background: rgba(0,0,0,0.25);
+    }
+    .popup-modal, .popup-modal > .dimmer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .popup-modal > .dimmer {
+        z-index: -1;
+    }
+
+
+    /* have to re-enable pointer events on children when you disable pointer events on parent */
+    .popup-modal:not(.modal) * {
+        pointer-events: auto;
+    }
+    /* allowing click through when not modal */
+    .popup-modal:not(.modal), .popup-modal:not(.modal) > .dimmer {
+        pointer-events: none;
+    }
+/* #endregion modal */
+
+/* #region popup */
+.popup-modal > .popup {
+    background: var(--color-text);
+    background-size: 100% 100%;
+    /*margin: 2em 3em 3em 3em;*/
+    /* note: .375em is .25em * 1.5em (popup>headers font-size) */
+    border-radius: .5em 0.5em 0.15em 0.15em;
+    position: relative;
+    top: 3em;
+    overflow-y: hidden; /* important: redirect all scrolling to body */
+    -webkit-box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.25);
+    box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.25);
+}
+
+.popup-modal:not(.full-screen) > .popup {
+    width: 25em;
+}
+
+
+.popup-modal:not(.full-screen):not(.large) .popup {
+    max-height: calc(100vh - 6em);
+}
+.popup-modal.large:not(.full-screen) > .popup {
+    width: 75%;
+    height: 75%;
+}
+
+@media screen and (max-width: 992px) {
+    .popup-modal:not(.full-screen) > .popup {
+        width: 25em;
+    }
+}
+/* #endregion popup */
+
+
+/* #region positioning */
+/* #region full screen */
+.popup-modal.full-screen:not(.mobile) .popup {
+    border-radius: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+.popup-modal.full-screen:not(.mobile) header {
+    border-radius: 0;
+}
+
+/* only allowing mobile popups into full-screen when screen is mobile sized */
+@media screen and (max-width: 500px) {
+    .popup-modal.full-screen.mobile .popup {
+        border-radius: 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .popup-modal.full-screen.mobile header .btn-minimize {
+        display: none;
+    }
+    .popup-modal.full-screen.mobile header {
+        border-radius: 0;
+    }
+}
+/* hiding max/min buttons for mobile popups on non-mobile screen */
+@media screen and (min-width: 501px) {
+    .popup-modal.mobile > .popup > header > .btn-maximize, .popup-modal.mobile > .popup > header > .btn-minimize {
+        display: none;
+    }
+    .popup-modal.mobile > .popup {
+        width: 25em;
+        max-height: 50em;
+    }  
+}
+
+/* #endregion full screen */
+/* #region top */
+.popup-modal.top {
+    align-items: flex-start;
+    padding: 1em; /*4.5em 1em 1em 1em;*/
+}
+/*@media only screen and (min-device-width: 768px) {
+    .popup-modal.top {
+        padding-left: 5.5em; /* moving right for side-bar*
+    }
+}*/
+/* #endregion top */
+/* #endregion positioning */
+
+
+
+/* #region header */
+.popup > header {
+    background: var(--color-text);
+    color: var(--color-text-text);
+    padding: .25em;
+    font-size: 1.5em;
+    border-top-left-radius: .25em; 
+    border-top-right-radius: .25em;
+    display: flex;
+}
+
+/* #region mouse grab */
+.popup-modal:not(.full-screen) > .popup.ui-draggable:not(.ui-draggable-dragging) > header {
+    cursor: grab;
+}
+
+.popup-modal:not(.full-screen) > .popup.ui-draggable-dragging {
+    cursor: grabbing;
+}
+/* #endregion mouse grab */
+
+
+
+.popup-modal.error .popup > header {
+    background: var(--color-error);
+    color: var(--color-error-text);
+}
+
+    /* #region header buttons */
+    .popup > header .btn-icon {
+        border-radius: .25em;
+        padding: 0;
+        padding: 0.1em 0;
+        margin-left: 0.25em;
+    }
+    .popup > header .btn-icon.btn-aux {
+        padding: 0.1em 0;
+        margin-right: 0.25em; 
+    }
+    @media screen  and (max-device-width: 480px) {
+        .popup > header i {
+            font-size: 1.5em;
+        }
+        .popup > header > .btn-icon {
+            font-size: 1.75em;
+        }
+        .popup > header {
+            height: 2.9em;
+        }
+    }
+
+    .popup > header > .btn-icon:after {
+        border-radius: 0.25em;
+        background: var(--color-accent);
+        border: 1px solid var(--color-accent);
+        color: var(--color-accent-text);
+    }
+
+    .popup > header > .btn-attach:after {
+        content: "attach_file";
+        font-size: 0.75em;
+        padding: 0.166667em;
+    }
+    .popup > header > .btn-download:after {
+        content: "cloud_download";
+        font-size: 0.75em;
+        padding: 0.166667em;
+    }
+.popup > header > .btn-print:after {
+    content: "print";
+    font-size: 0.75em;
+    padding: 0.166667em;
+}
+    .popup > header > .btn-delete:after {
+        content: "delete";
+        font-size: 0.75em;
+        padding: 0.166667em;
+        background: var(--color-error);
+        color: var(--color-error-text);
+        border-color: var(--color-error);
+    }
+    .popup > header > .btn-refresh:after {
+        content: "refresh";
+        font-size: 0.75em;
+        padding: 0.166667em;
+    }
+    .popup > header > .btn-minimize:after {
+        content: "fullscreen_exit";
+    }
+    .popup > header > .btn-maximize:after {
+        content: "fullscreen";
+    }
+    .popup > header > .btn-history:after {
+        content: "history";
+    }
+    .popup > header > .btn-settings:after {
+        content: "settings";
+        font-size: 0.9em;
+        padding: 0.05em;
+    }
+.popup > header > .btn-open-in-browser:after {
+    content: "open_in_browser";
+    font-size: 0.9em;
+    padding: 0.06em;
+}
+
+.popup > header > .btn-add:after {
+    content: "add";
+    font-size: 0.9em;
+    padding: 0.06em;
+    background: var(--color-success);
+    border-color: var(--color-success);
+    color: var(--color-success-text);
+}
+    .popup > header > .btn-security:after {
+        content: "security";
+        font-size: 0.9em;
+        padding: 0.05em;
+    }
+    .popup > header > .btn-search:after {
+        content: "search";
+        font-size: 0.9em;
+        padding: 0.05em;
+    }
+
+
+    .popup > header > .btn-icon.btn-close:after {
+        background: var(--color-error);
+        border-color: var(--color-error);
+        color: var(--color-error-text);
+        content: "close";
+    }
+
+    .popup-modal.error .popup > header > .btn-icon.btn-close:after {
+        border-color: var(--color-error-text);
+    }
+
+
+@media screen and (hover:hover) {
+    .popup > header > .btn-icon:not([disabled]):hover:after {
+        background: var(--color-accent-text);
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+    }
+
+    .popup > header > .btn-add:not([disabled]):hover:after {
+        background: var(--color-success-text);
+        color: var(--color-success);
+        border-color: var(--color-success);
+    }
+    .popup > header > .btn-icon.btn-close:not([disabled]):hover:after, .popup > header > .btn-icon.btn-delete:not([disabled]):hover:after {
+        background: var(--color-error-text);
+        color: var(--color-error);
+        border-color: var(--color-error);
+    }
+
+    /*.popup-modal.error .popup > header > .btn-icon.btn-close:hover:after {
+        background: var(--color-error-text);
+        color: var(--color-error);
+        border: 1px solid var(--color-error);
+    }*/
+
+}
+
+
+    /* #endregion header buttons */
+
+/* #endregion header */
+
+/* #region body */
+.popup > .body {
+    padding: 0.5em;                     /* default: pad horizontally and vertically */
+    min-height: 0;
+    background-color: var(--color-container);
+}
+@media screen and (max-device-width: 480px) {
+    .popup > .body {
+        font-size: 1.25em;
+    }
+}
+.popup > .body:empty {
+    padding: 0;
+}
+.popup-modal.pad-horiz .popup > .body {
+    padding: 0 0.5em;                   /* pad = "horizontal" -> only pad horizontally */
+}
+.popup-modal.pad-vert .popup > .body {
+    padding: 0.5em 0;                   /* pad = "vertical" -> only pad vertically */
+}
+.popup-modal.pad-top .popup > .body {
+    padding: 0.5em 0 0 0;
+}
+.popup-modal.pad-none .popup > .body {
+    padding: 0; /* pad = "none" -> no pad */
+}
+.popup-modal.pad-small .popup > .body {
+    padding: 0.25em;
+}
+
+
+/* #region overflow */
+/* this allows dropdowns and quill popups to escape container... but ONLY when not full screen (this includes mobile fullscreen */
+.popup-modal.overflow:not(.full-screen) .popup, .popup-modal.overflow:not(.full-screen) .popup > .body {
+    overflow: visible;
+}
+@media screen and (min-width: 501px) {
+    /* only do for mobile-fullscreen when not in mobile-fullscreen */
+    .popup-modal.overflow.mobile.full-screen .popup, .popup-modal.overflow.mobile.full-screen .popup > .body {
+        overflow: visible !important;
+    }
+}
+/* #endregion */
+
+/* #endregion body */
+
+/* #region footer */
+.popup footer:not(:empty) {
+    padding: 0.5em; /* 0 0.5em 0.5em 0.5em;*/
+    border-top: 1px solid var(--color-header-border);
+}
+.popup-modal.pad-none footer:not(:empty) {
+    padding-top: 0.5em;
+}
+.popup footer.separated:not(:empty) {
+    padding: 0.5em;
+    border-top: 1px solid var(--color-text);
+}
+
+.popup footer {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    background: var(--color-container);
+}
+
+    /* #region footer buttons */
+    .popup footer button {
+        flex-grow: 100;
+        flex-basis: 50%;
+        color: white;
+        outline: none;
+        border: none;
+        border-radius: .25em;
+        height: 2.7272727em; /* 3em / 1.1em */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+        .popup footer button:disabled {
+            opacity: 0.75;
+        }
+
+        .popup footer button.ok {
+            background: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+        .popup footer button.cancel {
+            background: var(--color-error);
+            border: 1px solid var(--color-error);
+        }
+        .popup footer button.accent {
+            background: var(--color-accent) !important;
+            border: 1px solid var(--color-accent) !important;
+        }
+        @media screen and (hover:hover) {
+            .popup footer button.ok:not(:disabled):hover {
+                background: transparent;
+                color: var(--color-success);
+            }
+            .popup footer button.cancel:not(:disabled):hover {
+                background: transparent;
+                color: var(--color-error);
+            }
+            .popup footer button.accent:not(:disabled):hover {
+                background: transparent !important;
+                color: var(--color-accent) !important;
+            }
+        }
+    /* #endregion footer buttons */
+/* #endregion footer */
+
+
+
+
+@media screen and (max-width: 767px) {
+    .popup-modal:not(.full-screen) .popup {
+        width: 25em;
+    }
+
+    /* large popup on small screen => force full screen (hide max/min button) */
+    .popup-modal.large.top {
+        padding: 0;
+    }
+    /*.popup-modal.top:not(.large):not(.full-screen) {
+        padding-top: 7rem;
+    }*/
+    .popup-modal.large:not(.full-screen) .popup {
+        width: 100% !important;
+        margin: 0;
+        min-height: 100%; /* 03-08-21: used to be 100vh, changed to 100% for messenger scrolling issue */
+        left: 0;
+        top: 0;
+        border-radius: 0;
+    }
+    .popup-modal.large:not(.full-screen) > .popup > header {
+        border-radius:0;
+    }
+    .popup-modal.large .btn-maximize, .popup-modal.large .btn-minimize {
+        display: none;
+    }
+
+    .popup-modal.large .popup.ui-draggable > header {
+        /* since large popup becomes full screen on smaller screen, disable drag mouse */
+        cursor: auto !important;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .popup-modal:not(.full-screen) .popup {
+        top: 0;
+        width: 100%;
+    }
+    .popup > header > .btn-icon, .popup > header > .btn-icon.btn-aux {
+        padding: 0.25em;
+    }
+    .popup > header > .flex.fill {
+        padding-left: 0.25em;
+    }
+}
+
+/* #region prompt */
+.popup-prompt .prompt-message {
+    text-align: center;
+}
+.popup-prompt .prompt-message.error {
+    color: var(--color-error);
+}
+/* #endregion prompt */
+
+/* #region email popup */
+.email-popup .body iframe {
+    border: 1px solid var(--color-accent);
+    border-radius: 0.25em;
+    margin-top: 0.5em;
+    display: flex;
+    flex-grow: 100;
+}
+/* #endregion */
+
+/* #region error popup */
+.error-popup .body iframe {
+    border: 1px solid var(--color-error);
+    border-radius: 0.25em;
+    margin-top: 0.5em;
+    display: flex;
+    flex-grow: 100;
+}
+.error-popup h3 {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+/* #endregion */
+
+/* #region attachments */
+
+/* #region attachment popup */
+.attach-popup .popup > .body {
+    display: block;
+}
+    .attach-popup .popup > .body > div {
+        width: 10%;
+        padding: 0.25em;
+        display: inline-block;
+    }
+
+    .attach-popup .popup > .body .attch.pdf .image {
+        background-image: url(/graphics/pdf.png);
+    }
+
+@media only screen and (max-width: 1440px) {
+    .attach-popup .popup > .body > div {
+        width: 12.5%; /* 8 columns */
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .attach-popup .popup > .body > div {
+        width: 16.6667%; /* 6 columns */
+    }
+}
+@media only screen and (max-width: 960px) {
+    .attach-popup .popup > .body > div {
+        width: 20%; /* 5 columns */
+    }
+}
+@media only screen and (max-width: 720px) {
+    .attach-popup .popup > .body > div {
+        width: 25%; /* 4 columns */
+    }
+}
+@media only screen and (max-width: 480px) {
+    .attach-popup .popup > .body > div {
+        width: 33.333%; /* 3 columns */
+    }
+}
+/* #endregion attachment popup */
+
+/* #region attachment scale popup */
+.attach-scale-popup .scale-slider {
+    font-size: 2.5em;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 0.5em;
+    border-radius: 1em;
+    background: var(--color-header);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    overflow: visible !important;
+    margin: 0.4em 0 0.35em 0
+}
+
+    .attach-scale-popup .scale-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        background: var(--color-accent);
+        cursor: pointer;
+    }
+
+        .attach-scale-popup .scale-slider::-webkit-slider-thumb::before {
+            content: "HEY";
+        }
+
+    .attach-scale-popup .scale-slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        cursor: pointer;
+    }
+/* #endregion attachment scale popup */
+
+/* #region attachment viewer popup */
+.pdfViewer .page {
+    height: 100% !important; /* enforce full height to allow scrolling (necessary for lazy load paging to work) */
+    margin: 0 auto !important; /* removing weird tiny margin from pdf_viewer.css that was causing unnecessary ~1 pixel scroll...if necessary replace this with padding on the container because that would make so much more sense */
+}
+
+    .pdfViewer .page .textLayer {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    /* #region TODO: scope this css to attach viewer popup only... and remove things that are not longer relevent */
+.attch-img {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border: 1px solid var(--color-accent);
+    border-radius: .25em;
+    z-index: 1; /* needed prevent pdf pages from overlapping rounded edge (overflow hidden is not enough, but also necessary) */
+    overflow: hidden;
+    position: relative; /* necessary for loader to be centered */
+}
+
+    .attch-img .loader {
+        font-size: 5em;
+    }
+
+    .attch-img .resolution, .image-editor-popup .popup > .body .resolution {
+        text-align: center;
+        background: var(--color-header);
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+.pdf-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 100;
+    overflow: hidden;
+}
+
+.pdf-controls {
+    flex-shrink: 0;
+    display: flex;
+    background: var(--color-header);
+}
+
+    .pdf-controls span {
+        margin: 0 .35em;
+        font-weight: bold;
+    }
+
+    .pdf-controls button {
+        flex-grow: 100;
+    }
+
+    .pdf-controls .next {
+        margin-left: .25em;
+    }
+
+    .pdf-controls .prev {
+        margin-right: .25em;
+    }
+
+.pdfViewer .page {
+    border: none !important;
+    /*-webkit-box-shadow: 0px 0px 5px 2px rgba(133,129,133,1);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(133,129,133,1);
+    box-shadow: 0px 0px 5px 2px rgba(133,129,133,1);*/
+}
+
+    .pdfViewer .page:not(:first-child) .canvasWrapper {
+        border-top: 1px solid var(--color-accent) !important;
+    }
+
+.pdfViewer {
+    overflow-x: auto;
+    overflow-y: scroll;
+    padding: 1em;
+    flex-grow: 100;
+    z-index: 0; /* needed to not overlap rounded edge of container */
+}
+/*.pdfViewer .page .textLayer {
+    user-select: all !important;
+}*/
+
+.attach-popup .image-wrapper {
+    width: 100%;
+    position: relative;
+    padding-top: 100%;
+    border-radius: .25em;
+    overflow: hidden;
+    border: 1px solid var(--color-accent);
+}
+
+.attach-popup .image-wrapper input {
+    display: none;
+}
+
+.attach-popup .image-wrapper i {
+    justify-content: center;
+    font-size: 3em;
+}
+
+.attach-popup .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+    width: 100%;
+    justify-content: center;
+}
+
+    .attach-popup .image i {
+        font-size: 3em;
+    }
+
+    .attach-popup .image.material-icons {
+        font-size: 5em;
+    }
+
+.attach-popup .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+    width: 100%;
+    opacity: 0;
+}
+
+.attachment-viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 99999;
+    width: 100%;
+    background: rgba(0,0,0,0.9);
+    padding: 1em;
+}
+
+.attachment-viewer-image {
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+}
+
+.attachment-viewer .icon-button {
+    float: left;
+    width: 50%;
+}
+
+    .attachment-viewer .icon-button i {
+        font-size: 2em;
+        color: white !important;
+    }
+
+.btn-attch-edit {
+    justify-content: center;
+}
+
+.btn-attch-remove {
+    justify-content: flex-start !important;
+}
+
+.btn-attch-close {
+    display: inline;
+    text-align: right;
+}
+
+/*.attachment-desc {
+    background: rgba(255, 255, 255, 0.75);
+    border: none;
+    border-radius: .5em;
+    font-size: 1.25em;
+    padding: 0 .25em;
+    outline: none;
+}*/
+
+
+/* #region triangle-button */
+
+.triangle-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: none;
+    /*border-radius: 0.25em;
+    border: 0.1rem solid #0080ff;*/
+    padding: 0;
+    margin: 0;
+}
+
+    .triangle-button > * {
+        position: absolute;
+        border: none;
+        outline: none;
+        width: 141.42%; /* sqrt(2) */
+        height: 141.42%;
+        top: 0;
+        background: transparent;
+        color: var(--color-text);
+    }
+
+    .triangle-button > button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        transform-origin: 0 0;
+        padding: 1em;
+    }
+
+        .triangle-button > button:hover {
+            background: #0080ff !important;
+            color: white !important;
+        }
+
+        .triangle-button > button:first-child {
+            border-top: 1px solid var(--color-accent);
+            transform: rotate(45deg);
+            flex-direction: column;
+        }
+
+    .triangle-button > .camera-btn > i {
+        transform: rotate(-45deg); /* undoing parent rotation */
+    }
+
+    .triangle-button > button:last-child {
+        border-left: 1px solid var(--color-accent);
+        transform: rotate(-45deg);
+    }
+
+
+/* #endregion triangle-button */
+    /* #endregion TODO */
+/* #endregion attachment viewer popup */
+/* #endregion attachments */
+
+/* #region error popup */
+.error-popup .bug {
+    font-size: 3em;
+    margin-right: 0.15em;
+    color: var(--color-error);
+}
+.error-popup .popup > .body h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.5em;
+}
+.error-popup .popup > .body h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.15em;
+}
+
+/* #endregion error popup */
+
+/* #region search popup */
+@media screen and (min-width: 501px) {
+    .popup-modal.search-popup > .popup {
+        min-height: 50em;
+    }
+}
+.popup-modal.search-popup > .popup > .body > .filters:not(:empty) {
+    padding: 0.5em;
+}
+.popup-modal.search-popup .scroller {
+    overflow: hidden auto;
+}
+/*.popup-modal.search-popup .filters .input-wrapper.with-label {
+    margin-top: 0.5em; /* tightening spacing to make more room for search content *
+}*/
+.popup-modal.search-popup .filters.no-header {
+    border-bottom: 1px solid var(--color-text);
+}
+/*.popup-modal.search-popup {
+    min-height: 45em;
+    overflow-y: hidden;
+}*/
+@media screen and (max-device-width: 480px) {
+    .popup-modal.search-popup .popup > .body {
+        font-size: 1.25em;
+    }
+}
+.popup-modal.search-popup > .popup > .body .striped {
+    cursor: pointer;
+}
+@media (hover:hover) {
+    .popup-modal.search-popup > .popup > .body .striped:hover {
+        background: var(--color-accent-75);
+        color: var(--color-accent-text);
+    }
+    .popup-modal.search-popup > .popup > .body .striped:hover mark {
+        background: var(--color-accent-text) !important;
+        color: var(--color-accent) !important;
+    }
+}
+/* #endregion search popup */
+/* #region info popup */
+@media screen and (max-device-width: 480px) {
+    .popup-modal.info-popup .popup > .body {
+        font-size: 1.25em;
+    }
+    .popup-modal.info-popup .popup .sticky-header {
+        font-size: 0.75em;
+    }
+}
+/* #endregion  */
+
+/* #region notifications */
+.popup-notifications {
+    position: absolute;
+    top: 4em;
+    align-self: center;
+    z-index: 999999;
+    padding: 0 0.5em;
+    margin-left: 2.25em;       /* offset for side menu */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+@media only screen and (max-device-width: 767px) {
+    .popup-notifications {
+        top: 6.5rem;
+        margin-left: 0; /* in mobile, left side-menu is collapsed, so we don't provide extra left margin */
+    }
+}
+
+.popup-notifications > div {
+    min-width: 10em;
+    max-width: 600px;
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25em;
+    padding: 1em;
+    margin-bottom: 0.5em;
+
+}
+
+    .popup-notifications > div.success {
+        background: var(--color-success) !important;
+        color: var(--color-success-text) !important;
+    }
+    .popup-notifications > div.error {
+        background: var(--color-error) !important;
+        color: var(--color-error-text) !important;
+    }
+/* #endregion notifications */
+
+/* #region image scaler popup */
+.image-editor-popup .tab-bar button {
+    margin-right: 0.25em;
+    margin-left: 0.25em;
+}
+.image-editor-popup .popup > .body .control-panel {
+    padding: 0.5em 0.25em 0 0.25em
+}
+.image-editor-popup .popup > .body .canvas-container {
+    margin: 0.5em;
+    width: calc(100% - 1em);
+    padding-top: calc(100% + 0.25em);
+    border: 1px solid var(--color-accent);
+    border-radius: 0.25em;
+    position: relative;
+    overflow: hidden;
+}
+.image-editor-popup .popup > .body canvas {
+    margin-bottom: 1.25em;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.image-editor-popup .popup > .body .resolution {
+    height: 1.25em;
+    line-height: 1em;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+/* #region rounded */
+.image-editor-popup .popup > .body .canvas-container.rounded {
+    padding-top: calc(100% + 1em);
+    border: none;
+}
+
+    .image-editor-popup .popup > .body .canvas-container.rounded canvas {
+        border-radius: 100%;
+        border: 1px solid var(--color-accent);
+    }
+    .image-editor-popup .popup > .body .canvas-container.rounded .resolution {
+        background: transparent;
+    }
+/* #endregion */
+
+.icon-upload-popup .popup > .body label {
+    cursor: pointer;
+}
+.icon-upload-popup .popup > .body input[type='file'] {
+    display: none;
+}
+/* #endregion */
+
+
+
+/* #region PDF Popup */
+.popup-modal.pdf-popup:not(.full-screen) > .popup {
+    height: 100%;
+    top: 0;
+}
+.popup-modal.pdf-popup > .popup iframe {
+    flex-grow: 100;
+    border: none;
+    outline: none;
+}
+.popup-modal.pdf-popup > .popup .pdfViewer {
+    background: var(--color-header-border);
+}
+
+@media screen and (min-width: 961px) {
+    .popup-modal.pdf-popup:not(.full-screen) > .popup {
+        min-width: calc(960px - 4.5em); /* subtracting width of side menu */
+    }
+}
+@media screen and (max-width: 960px) {
+    .popup-modal.pdf-popup:not(.full-screen) > .popup {
+        min-width: unset;
+        width: 100%;
+    }
+}
+/* #endregion */
+
+
+/* #region serial pattern popup */
+.serial-pattern-popup .popup > .body .list {
+    margin-top: 0.5em;
+    border-top: 1px solid var(--color-text);
+}
+    .serial-pattern-popup .popup > .body .list .striped {
+        padding: 0.5em;
+    }
+/* #endregion */
+
+/* #region serial list popup */
+.serial-list-popup .popup > .body .input-wrapper {
+    margin: 0 0.5em;
+}
+.serial-list-popup .popup > .body .striped {
+    padding: 0.5em;
+}
+.serial-list-popup .popup > .body .status {
+    padding: 0.25em 0.75em;
+    font-weight: bold;
+}
+    .serial-list-popup .popup > .body .status > span {
+        padding: 0 0.25em;
+    }
+        .serial-list-popup .popup > .body .status > span:nth-child(2) {
+            flex-grow: 1;
+        }
+.serial-list-popup .popup > .body .selection {
+    margin-top: 0.5em;
+    border-top: 1px solid var(--color-text);
+}
+/* #endregion */
