@@ -8,18 +8,12 @@ export class PhaserPopup extends Popup {
     constructor(args:PhaserPopupParams) {
         super(args);
 
-        /*// keeping popup scaled to game screen
-        let canvas = args.game.canvas;
-        $(window).on("resize", () => {
 
-            let css = {
-                "width": canvas.width,
-                "height": canvas.height,
-                "margin-top": $(canvas).css("margin-top"),
-                "margin-left": $(canvas).css("margin-top")
-            }; 
-          
-            this.$container.css(css);
-        });*/
+
+        // important:
+        //      phaser is receiving clicks through the popup modal container
+        //      need to stop propagation to prevent popup clicks from making it to the game
+        this.$container.on("mousedown", e => e.stopPropagation())
+
     }
 }
